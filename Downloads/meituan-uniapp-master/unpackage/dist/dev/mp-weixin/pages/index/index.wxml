@@ -1,0 +1,1 @@
+<view><search vue-id="8dd740cc-1" bind:__l="__l"></search><preference vue-id="8dd740cc-2" preferData="{{preferData}}" bind:__l="__l"></preference><nearby vue-id="8dd740cc-3" bind:__l="__l"></nearby><delicacy vue-id="8dd740cc-4" bind:__l="__l"></delicacy><takeout vue-id="8dd740cc-5" bind:__l="__l"></takeout></view>

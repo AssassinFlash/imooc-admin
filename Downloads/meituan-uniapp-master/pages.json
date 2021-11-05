@@ -1,0 +1,72 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "jzh外卖"
+			}
+		}
+	    ,{
+            "path" : "pages/order/order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/center/center",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"color":"#999794",
+		"selectedColor":"#33312E",
+		"borderStyle":"black",
+		"backgroundColor":"#fafafa",
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"text":"首页",
+				"iconPath":"static/tab/shouyea.png",
+				"selectedIconPath":"static/tab/shouyeb.png"
+			},
+			{
+				"pagePath":"pages/order/order",
+				"text":"订单",
+				"iconPath":"static/tab/dingdana.png",
+				"selectedIconPath":"static/tab/dingdanb.png"
+			},
+			{
+				"pagePath":"pages/center/center",
+				"text":"个人中心",
+				"iconPath":"static/tab/wodea.png",
+				"selectedIconPath":"static/tab/wodeb.png"
+			}
+		]
+	}
+}
