@@ -1,7 +1,6 @@
 <template>
-  <div>
-
-  </div>
+  <!-- 一级路由的出口 -->
+  <router-view />
 </template>
 
 <script setup>
