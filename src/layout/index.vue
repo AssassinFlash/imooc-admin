@@ -1,20 +1,20 @@
 <template>
   <div
     class="app-wrapper"
-    :class="{'hideSidebar' : !$store.getters.sidebarOpened}"
+    :class="{ hideSidebar: !$store.getters.sidebarOpened }"
   >
     <!-- 左侧Menu -->
     <Sidebar
       class="sidebar-container"
-      :style="{backgroundColor: variables.menuBg}"
+      :style="{ backgroundColor: variables.menuBg }"
     />
     <div class="main-container">
       <div class="fixed-header">
         <!-- 头部 -->
-        <Navbar/>
+        <Navbar />
       </div>
       <!-- 主体内容 -->
-      <AppMain/>
+      <AppMain />
     </div>
   </div>
 </template>
@@ -29,8 +29,8 @@ console.log(variables)
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/styles/variables.module.scss";
-@import "~@/assets/styles/mixin.scss";
+@import '~@/assets/styles/variables.module.scss';
+@import '~@/assets/styles/mixin.scss';
 
 .app-wrapper {
   @include relative;

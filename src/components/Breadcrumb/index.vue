@@ -7,8 +7,8 @@
       >
         <!-- 不可点击项 -->
         <span v-if="index === breadCrumbData.length - 1" class="no-redirect">
-        {{ item.meta.title }}
-      </span>
+          {{ item.meta.title }}
+        </span>
         <!-- 可点击项 -->
         <a v-else class="redirect" @click.prevent="onLinkClick(item)">
           {{ item.meta.title }}
@@ -29,7 +29,9 @@ const router = useRouter()
 // 面包屑数据
 const breadCrumbData = ref([])
 const getBreadcrumbData = () => {
-  breadCrumbData.value = route.matched.filter(route => route.meta.icon && route.meta.title)
+  breadCrumbData.value = route.matched.filter(
+    (route) => route.meta.icon && route.meta.title
+  )
   console.log(breadCrumbData.value)
 }
 
@@ -38,11 +40,15 @@ const onLinkClick = (route) => {
   router.push(route.path)
 }
 
-watch(route, () => {
-  // 当前路由的路由表，比如：在/user/manage中，route.match = [{path: '/user'}, {path: '/user/manage'}]
-  // 拿到菜单项对应的路由
-  getBreadcrumbData()
-}, { immediate: true })
+watch(
+  route,
+  () => {
+    // 当前路由的路由表，比如：在/user/manage中，route.match = [{path: '/user'}, {path: '/user/manage'}]
+    // 拿到菜单项对应的路由
+    getBreadcrumbData()
+  },
+  { immediate: true }
+)
 
 const linkHoverColor = ref(store.getters.cssVar.menuBg)
 </script>
@@ -79,16 +85,19 @@ export default {
 }
 
 // 动画
-.breadcrumb-enter-from, .breadcrumb-leave-to {
+.breadcrumb-enter-from,
+.breadcrumb-leave-to {
   transform: translateX(20px);
   opacity: 0;
 }
 
-.breadcrumb-enter-active, .breadcrumb-leave-active {
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
   transition: all 0.3s;
 }
 
-.breadcrumb-enter-to, .breadcrumb-leave-from {
+.breadcrumb-enter-to,
+.breadcrumb-leave-from {
   transform: none;
   opacity: 1;
 }
