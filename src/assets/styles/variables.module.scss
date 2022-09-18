@@ -10,6 +10,7 @@ $subMenuBg: #1f2d3d;
 $subMenuHover: #001528;
 
 $sideBarWidth: 210px;
+$hideSidebarWidth: 64px;
 
 // 导出js变量
 :export {
@@ -21,4 +22,5 @@ $sideBarWidth: 210px;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;
+  hideSidebarWidth: $hideSidebarWidth;
 }

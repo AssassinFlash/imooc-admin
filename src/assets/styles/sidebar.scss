@@ -55,6 +55,12 @@
       margin-right: 16px;
     }
 
+    .el-menu--collapse {
+      .svg-icon {
+        margin-right: 0;
+      }
+    }
+
     .sub-el-icon {
       margin-right: 12px;
       margin-left: -2px;
@@ -78,7 +84,7 @@
 
   .hideSidebar {
     .sidebar-container {
-      width: 54px !important;
+      width: 64px !important;
     }
 
     .main-container {
