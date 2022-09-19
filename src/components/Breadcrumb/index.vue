@@ -55,6 +55,7 @@ export default {
 <style lang="scss" scoped>
 // 将来需要主题替换，所以hover的颜色设置为主题颜色
 .breadcrumb {
+  position: relative;
   height: 50px;
   line-height: 50px;
   display: inline-block;
@@ -91,5 +92,8 @@ export default {
 .breadcrumb-enter-to, .breadcrumb-leave-from {
   transform: none;
   opacity: 1;
+}
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>
