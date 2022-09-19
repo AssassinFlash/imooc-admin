@@ -6,7 +6,7 @@
     <!-- 左侧Menu -->
     <Sidebar
       class="sidebar-container"
-      :style="{ backgroundColor: variables.menuBg }"
+      :style="{ backgroundColor: $store.getters.cssVar.menuBg }"
     />
     <div class="main-container">
       <div class="fixed-header">
@@ -23,9 +23,6 @@
 import Sidebar from './components/Sidebar/index'
 import Navbar from '@/layout/components/Navbar'
 import AppMain from '@/layout/components/AppMain'
-import variables from '@/assets/styles/variables.module.scss'
-
-console.log(variables)
 </script>
 
 <style lang="scss" scoped>

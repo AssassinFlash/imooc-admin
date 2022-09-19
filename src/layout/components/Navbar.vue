@@ -2,14 +2,16 @@
   <div class="navbar">
     <div class="left-menu">
       <!-- 菜单栏收缩展开按钮 -->
-      <Hamburger/>
+      <Hamburger />
       <!-- 面包屑 -->
-      <Breadcrumb/>
+      <Breadcrumb />
     </div>
     <div class="right-menu">
       <div class="right-menu-item">
+        <!-- 更换主题色组件 -->
+        <ThemeSelect />
         <!-- 语言切换组件 -->
-        <LangSelect/>
+        <LangSelect />
         <!-- 头像 -->
         <el-dropdown class="avatar-container" trigger="click">
           <div class="avatar-wrapper">
@@ -19,7 +21,7 @@
               :src="$store.getters.userInfo.avatar"
             />
             <el-icon>
-              <setting/>
+              <setting />
             </el-icon>
           </div>
           <!-- 下拉菜单 -->
@@ -29,12 +31,11 @@
                 <el-dropdown-item>{{ $t('msg.navBar.home') }}</el-dropdown-item>
               </router-link>
               <a href="#" target="__blank">
-                <el-dropdown-item>{{ $t('msg.navBar.course') }}</el-dropdown-item>
+                <el-dropdown-item>
+                  {{ $t('msg.navBar.course') }}
+                </el-dropdown-item>
               </a>
-              <el-dropdown-item
-                divided
-                @click="$store.dispatch('user/logout')"
-              >
+              <el-dropdown-item divided @click="$store.dispatch('user/logout')">
                 {{ $t('msg.navBar.logout') }}
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -49,6 +50,7 @@
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
+import ThemeSelect from '@/components/ThemeSelect'
 </script>
 
 <style lang="scss" scoped>

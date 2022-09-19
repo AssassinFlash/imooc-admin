@@ -63,6 +63,7 @@ export default {
   line-height: 50px;
   margin-right: 10px;
   text-align: center;
+  cursor: pointer;
 
   :deep(.svg-icon) {
     width: 30px;

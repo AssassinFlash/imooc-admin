@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    {{ $t('test.msg') }}
-
+    <el-button type="primary">测试颜色</el-button>
+    <el-button>测试颜色</el-button>
     <el-pagination
       :page-size="100"
       layout="total, prev, pager, next"
