@@ -8,6 +8,8 @@
     </div>
     <div class="right-menu">
       <div class="right-menu-item">
+        <!-- 全屏组件 -->
+        <ScreenFull />
         <!-- 更换主题色组件 -->
         <ThemeSelect />
         <!-- 语言切换组件 -->
@@ -51,6 +53,7 @@ import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
 import ThemeSelect from '@/components/ThemeSelect'
+import ScreenFull from '@/components/ScreenFull'
 </script>
 
 <style lang="scss" scoped>
