@@ -102,6 +102,7 @@ export default {
   transform: none;
   opacity: 1;
 }
+
 .breadcrumb-leave-active {
   position: absolute;
 }
