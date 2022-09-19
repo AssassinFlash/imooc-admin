@@ -41,7 +41,7 @@ const user = {
           // 1.存储token和记录登录时间
           context.commit('setToken', data.token)
           // 2.消息提示
-          ElMessage.success('登录成功')
+          ElMessage.success(context.rootGetters.language === 'en' ? 'Successfully Login' : '登录成功')
           // 3.跳转到首页
           router.push('/')
           resolve()

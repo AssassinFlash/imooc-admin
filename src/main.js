@@ -12,6 +12,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import installIcon from '@/components/SvgIcons/svg'
 // 引入路由鉴权
 import './permission'
+// 引入国际化
+import i18n from '@/i18n'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -19,4 +21,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 installIcon(app)
 
-app.use(store).use(router).use(ElementPlus).mount('#app')
+app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')

@@ -40,6 +40,11 @@ const styleExternalIcon = computed(() => ({
 // 项目内图标
 const iconName = computed(() => `#icon-${props.icon}`)
 </script>
+<script>
+export default {
+  name: 'SvgIcon'
+}
+</script>
 
 <style scoped>
 .svg-icon {

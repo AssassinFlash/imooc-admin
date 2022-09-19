@@ -15,6 +15,9 @@ const getters = {
   },
   sidebarOpened(state) {
     return state.app.sidebarOpened
+  },
+  language(state) {
+    return state.app.language
   }
 }
 
