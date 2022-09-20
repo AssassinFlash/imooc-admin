@@ -8,6 +8,8 @@
     </div>
     <div class="right-menu">
       <div class="right-menu-item">
+        <!-- 搜索组件 -->
+        <HeaderSearch />
         <!-- 全屏组件 -->
         <ScreenFull />
         <!-- 更换主题色组件 -->
@@ -54,6 +56,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
 import ThemeSelect from '@/components/ThemeSelect'
 import ScreenFull from '@/components/ScreenFull'
+import HeaderSearch from '@/components/HeaderSearch/index.vue'
 </script>
 
 <style lang="scss" scoped>
