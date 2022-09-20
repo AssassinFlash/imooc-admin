@@ -25,44 +25,53 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRoutes, generateMenus } from '@/utils/route'
 import { generateRoutes } from './FuseData'
 import Fuse from 'fuse.js'
+import { useStore } from 'vuex'
 
 const router = useRouter()
+const store = useStore()
 
 const searchVal = ref('') // 选择框内容
 const isShow = ref(false) // 控制选择框是否显示
 const searchRes = ref([]) // 搜索结果
+const selectRef = ref(null) // 选择框对象
 
 // 数据源：对于搜索来说，它要搜索的就是菜单，因此，侧边栏菜单为搜索数据源
-const searchPool = computed(() => {
+let searchPool = null
+let fuse = null
+
+// 创建数据源
+const initPool = () => {
   const routes = filterRoutes(router.getRoutes())
   const menus = generateMenus(routes)
-  return generateRoutes(menus)
-})
+  searchPool = generateRoutes(menus)
+}
 
 // 创建模糊搜索对象
-const fuse = new Fuse(searchPool.value, {
-  // 按优先级排序
-  shouldSort: true,
-  // 匹配长度超过1就认为是匹配结果
-  minMatchCharLength: 1,
-  // fuse认为数据源应该是这样的：[{path: '/user/manage', title: ['用户', '用户管理']}]
-  keys: [
-    // 搜索的权重
-    {
-      name: 'title',
-      weight: 0.7
-    },
-    {
-      name: 'path',
-      weight: 0.3
-    }
-  ]
-})
+const initFuse = (searchPool) => {
+  fuse = new Fuse(searchPool, {
+    // 按优先级排序
+    shouldSort: true,
+    // 匹配长度超过1就认为是匹配结果
+    minMatchCharLength: 1,
+    // fuse认为数据源应该是这样的：[{path: '/user/manage', title: ['用户', '用户管理']}]
+    keys: [
+      // 搜索的权重
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
+  })
+}
 
 // 当选择框有内容时，自动启用搜索
 const querySearch = (query) => {
@@ -72,6 +81,31 @@ const querySearch = (query) => {
 const onSelect = () => {
   router.push(searchVal.value.path)
 }
+
+// 当点击其他地方时，关闭搜索，清空搜索框内容
+const close = () => {
+  isShow.value = false
+  selectRef.value.blur()
+  searchVal.value = ''
+  searchRes.value = []
+}
+// 当点击其他地方时关闭搜索框
+watch(isShow, () => {
+  if (isShow.value) {
+    document.body.addEventListener('click', close)
+  } else {
+    document.body.removeEventListener('click', close)
+  }
+})
+// 当语言切换时重新生成数据源和模糊搜索对象
+watch(
+  () => store.getters.language,
+  () => {
+    initPool()
+    initFuse(searchPool)
+  },
+  { immediate: true }
+)
 </script>
 
 <script>

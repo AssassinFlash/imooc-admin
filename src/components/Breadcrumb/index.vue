@@ -33,7 +33,6 @@ const getBreadcrumbData = () => {
   breadCrumbData.value = route.matched.filter(
     (route) => route.meta.icon && route.meta.title
   )
-  console.log(breadCrumbData.value)
 }
 
 // 处理跳转点击

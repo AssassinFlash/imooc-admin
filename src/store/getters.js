@@ -31,6 +31,9 @@ const getters = {
   },
   mainColor (state) {
     return state.theme.mainColor
+  },
+  tagViewList(state) {
+    return state.app.tagViewList
   }
 }
 
