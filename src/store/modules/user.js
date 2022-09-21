@@ -1,7 +1,7 @@
 import { getUserInfo, login } from '@/api/sys'
 import md5 from 'md5'
 import { setItem, getItem, removeItem } from '@/utils/storage'
-import { TOKEN } from '@/constant'
+import { TAG_VIEW, TIME_STAMP, TOKEN } from '@/constant'
 import { setTimeStamp } from '@/utils/auth'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
@@ -63,7 +63,12 @@ const user = {
       context.commit('setUserInfo', {})
       // 2.清空本地存储的token
       removeItem(TOKEN)
-      // 3.跳转回登录页
+      // 3.清空时间
+      removeItem(TIME_STAMP)
+      // 4.清空标签栏
+      context.commit('app/setTagViewList', [], { root: true })
+      removeItem(TAG_VIEW)
+      // 5.跳转回登录页
       router.push('/login')
     }
   }

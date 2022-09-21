@@ -10,10 +10,18 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import en from 'element-plus/lib/locale/lang/en'
 import { useStore } from 'vuex'
 import { generateNewStyle, writeNewStyle } from '@/utils/theme2'
+import { watch } from 'vue'
 
 const store = useStore()
 generateNewStyle(store.getters.mainColor).then(newStyle => {
   writeNewStyle(newStyle)
+})
+
+// 监听语言切换，重新获取用户信息
+watch(() => store.getters.language, () => {
+  if (store.getters.token) {
+    store.dispatch('user/getUserInfo')
+  }
 })
 </script>
 

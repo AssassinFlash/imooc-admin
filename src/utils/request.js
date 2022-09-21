@@ -11,6 +11,8 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(async (config) => {
   config.headers.icode = '82F03EE2D9784438'
+  // 处理接口国际化
+  config.headers['Accept-Language'] = store.getters.language
   if (store.getters.token) {
     // 在请求拦截器中判断token是否超时
     if (isCheckTimeout()) {
