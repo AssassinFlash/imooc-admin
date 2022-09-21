@@ -14,11 +14,13 @@ import installIcon from '@/components/SvgIcons/svg'
 import './permission'
 // 引入国际化
 import i18n from '@/i18n'
+// 引入过滤器
+import installFilter from './filter'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 installIcon(app)
-
+installFilter(app)
 app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')
