@@ -6,7 +6,9 @@
         <el-button type="primary" @click="$router.push('/user/import')">
           {{ $t('msg.excel.importExcel') }}
         </el-button>
-        <el-button type="success">{{ $t('msg.excel.exportExcel') }}</el-button>
+        <el-button type="success" @click="showExportExcel">
+          {{ $t('msg.excel.exportExcel') }}
+        </el-button>
       </div>
     </el-card>
     <!-- 用户列表 -->
@@ -50,7 +52,7 @@
         </el-table-column>
         <!-- 操作 -->
         <el-table-column :label="$t('msg.excel.action')" fixed="right">
-          <template #default>
+          <template #default="{ row }">
             <div>
               <el-button type="primary" size="small">
                 {{ $t('msg.excel.show') }}
@@ -58,7 +60,7 @@
               <el-button type="info" size="small">
                 {{ $t('msg.excel.showRole') }}
               </el-button>
-              <el-button type="danger" size="small">
+              <el-button type="danger" size="small" @click="onRemove(row)">
                 {{ $t('msg.excel.remove') }}
               </el-button>
             </div>
@@ -77,15 +79,27 @@
         :total="total"
       />
     </div>
+    <!-- 导出excel的弹窗 -->
+    <ExportExcel v-model="exportExcelVisible" />
   </div>
 </template>
 
 <script setup>
-import { ref, watch, watchEffect } from 'vue'
-import { getUserManageList } from '@/api/user-manage'
+import { ref, watch, watchEffect, onActivated } from 'vue'
+import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { useStore } from 'vuex'
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+import ExportExcel from './components/ExportExcel.vue'
 
 const store = useStore()
+const i18n = useI18n()
+
+// 控制导出Excel弹窗是否显示
+const exportExcelVisible = ref(false)
+const showExportExcel = () => {
+  exportExcelVisible.value = true
+}
 
 // 数据相关
 const tableData = ref([]) // 表格数据
@@ -103,6 +117,28 @@ const getListData = async () => {
   total.value = result.total
 }
 
+// 点击删除
+const onRemove = (data) => {
+  ElMessageBox.confirm(
+    i18n.t('msg.excel.dialogTitle1') +
+      data.username +
+      i18n.t('msg.excel.dialogTitle2'),
+    {
+      type: 'warning'
+    }
+  )
+    .then(async () => {
+      // 点击确认
+      await deleteUser(data._id)
+      ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+      await getListData()
+    })
+    .catch(() => {
+      // 点击取消
+      console.log('取消')
+    })
+}
+
 // 监听页码和每页条数的变化，重新获取用户列表数据
 watchEffect(async () => {
   await getListData()
@@ -116,6 +152,11 @@ watch(
   },
   { immediate: true }
 )
+
+// keep-alive缓存的组件重新激活时调用
+onActivated(() => {
+  getListData()
+})
 </script>
 
 <style lang="scss" scoped>
