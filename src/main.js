@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store'
+import router from './router'
 // 引入element-plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -26,4 +26,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 installIcon(app)
 installFilter(app)
 installDirective(app)
-app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')
+app.use(router).use(ElementPlus).use(i18n).use(store).mount('#app')

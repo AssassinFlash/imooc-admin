@@ -3,7 +3,11 @@
     <!-- 头部 -->
     <el-card class="header">
       <div>
-        <el-button type="primary" @click="$router.push('/user/import')">
+        <el-button
+          type="primary"
+          @click="$router.push('/user/import')"
+          v-permission="'importUser'"
+        >
           {{ $t('msg.excel.importExcel') }}
         </el-button>
         <el-button type="success" @click="showExportExcel">
@@ -61,10 +65,20 @@
               >
                 {{ $t('msg.excel.show') }}
               </el-button>
-              <el-button type="info" size="small">
+              <el-button
+                type="info"
+                size="small"
+                @click="onShowRoleClick(row)"
+                v-permission="'distributeRole'"
+              >
                 {{ $t('msg.excel.showRole') }}
               </el-button>
-              <el-button type="danger" size="small" @click="onRemove(row)">
+              <el-button
+                type="danger"
+                size="small"
+                @click="onRemove(row)"
+                v-permission="'removeUser'"
+              >
                 {{ $t('msg.excel.remove') }}
               </el-button>
             </div>
@@ -85,16 +99,23 @@
     </div>
     <!-- 导出excel的弹窗 -->
     <ExportExcel v-model="exportExcelVisible" />
+    <!-- 点击角色的弹窗，同时监听用户角色更新事件，重新获取用户列表 -->
+    <Roles
+      v-model="roleDialogVisible"
+      :userId="selectUserId"
+      @updateRole="getListData"
+    />
   </div>
 </template>
 
 <script setup>
+import Roles from './components/Roles.vue'
+import ExportExcel from './components/ExportExcel.vue'
 import { ref, watch, watchEffect, onActivated } from 'vue'
 import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
-import ExportExcel from './components/ExportExcel.vue'
 import { useRouter } from 'vue-router'
 
 const store = useStore()
@@ -105,6 +126,15 @@ const i18n = useI18n()
 const exportExcelVisible = ref(false)
 const showExportExcel = () => {
   exportExcelVisible.value = true
+}
+
+// 控制查看角色弹窗是否显示
+const roleDialogVisible = ref(false)
+// 选中的用户ID
+const selectUserId = ref('')
+const onShowRoleClick = (row) => {
+  roleDialogVisible.value = true
+  selectUserId.value = row._id
 }
 
 // 数据相关
@@ -155,6 +185,12 @@ watchEffect(async () => {
   await getListData()
 })
 
+// 解决bug：只有点击不同的用户才能重新获取用户角色
+// 每次重新打开查看角色弹窗就重新获取用户角色
+watch(roleDialogVisible, (val) => {
+  if (!val) selectUserId.value = ''
+})
+
 // 监听语言变化，重新获取用户列表数据
 watch(
   () => store.getters.language,
@@ -164,6 +200,7 @@ watch(
   { immediate: true }
 )
 
+// 解决bug：导入excel之后要重新刷新页面才能获取最新的用户列表
 // keep-alive缓存的组件重新激活时调用
 onActivated(() => {
   getListData()

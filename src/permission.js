@@ -10,7 +10,16 @@ router.beforeEach(async (to, from, next) => {
   // 当用户已登录(存在token)，不允许进入login页，同时要获取用户的信息
   if (store.getters.token) {
     if (!store.getters.hasUserInfo) {
-      await store.dispatch('user/getUserInfo')
+      // 拿到用户权限
+      const { permission } = await store.dispatch('user/getUserInfo')
+      // 根据用户权限动态生成路由
+      const filterRoutes = await store.dispatch(
+        'permission/filterRoutes',
+        permission.menus
+      )
+      filterRoutes.forEach((route) => {
+        router.addRoute(route)
+      })
     }
     if (to.path === '/login') {
       next('/')
