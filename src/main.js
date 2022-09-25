@@ -16,6 +16,8 @@ import './permission'
 import i18n from '@/i18n'
 // 引入过滤器
 import installFilter from './filter'
+// 引入自定义指令
+import installDirective from './directives'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -23,4 +25,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 installIcon(app)
 installFilter(app)
+installDirective(app)
 app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')

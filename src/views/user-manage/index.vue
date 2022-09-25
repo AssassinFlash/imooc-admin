@@ -54,7 +54,11 @@
         <el-table-column :label="$t('msg.excel.action')" fixed="right">
           <template #default="{ row }">
             <div>
-              <el-button type="primary" size="small">
+              <el-button
+                type="primary"
+                size="small"
+                @click="onShowClick(row._id)"
+              >
                 {{ $t('msg.excel.show') }}
               </el-button>
               <el-button type="info" size="small">
@@ -91,8 +95,10 @@ import { useStore } from 'vuex'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import ExportExcel from './components/ExportExcel.vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
+const router = useRouter()
 const i18n = useI18n()
 
 // 控制导出Excel弹窗是否显示
@@ -137,6 +143,11 @@ const onRemove = (data) => {
       // 点击取消
       console.log('取消')
     })
+}
+
+// 点击查看
+const onShowClick = (id) => {
+  router.push(`/user/info/${id}`)
 }
 
 // 监听页码和每页条数的变化，重新获取用户列表数据
