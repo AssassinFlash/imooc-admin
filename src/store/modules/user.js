@@ -64,8 +64,14 @@ const user = {
       // 解决bug：切换用户后，菜单不变，只有刷新了页面之后菜单才发生变化
       // 原因：路由表没有发生变化，需要在退出用户时就清空路由表
       // 删除由用户权限动态生成的路由表
-      const { menus } = context.state.userInfo.permission
-      menus.forEach((menu) => router.removeRoute(menu))
+      if (
+        context.state.userInfo &&
+        context.state.userInfo.permission &&
+        context.state.userInfo.permission.menus
+      ) {
+        const { menus } = context.state.userInfo.permission
+        menus.forEach((menu) => router.removeRoute(menu))
+      }
       // 1.清空vuex数据
       context.commit('setToken', '')
       context.commit('setUserInfo', {})

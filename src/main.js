@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+// 引入国际化
+import i18n from '@/i18n'
 import store from './store'
 import router from './router'
 // 引入element-plus
@@ -12,8 +14,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import installIcon from '@/components/SvgIcons/svg'
 // 引入路由鉴权
 import './permission'
-// 引入国际化
-import i18n from '@/i18n'
 // 引入过滤器
 import installFilter from './filter'
 // 引入自定义指令
@@ -26,4 +26,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 installIcon(app)
 installFilter(app)
 installDirective(app)
-app.use(router).use(ElementPlus).use(i18n).use(store).mount('#app')
+app.use(router).use(ElementPlus).use(store).use(i18n).mount('#app')
