@@ -19,10 +19,11 @@
 
 <script setup>
 import { articleDetail } from '@/api/article'
-import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ref, onActivated } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
 
 const detail = ref({}) // 文章详情
 
@@ -30,6 +31,16 @@ const getArticleDetail = async () => {
   detail.value = await articleDetail(route.params.id)
 }
 getArticleDetail()
+
+// 点击编辑文章
+const onEditClick = () => {
+  router.push(`/article/editor/${route.params.id}`)
+}
+
+// 缓存组件重新激活时重新获取文章详情
+onActivated(() => {
+  getArticleDetail()
+})
 </script>
 
 <style lang="scss" scoped>
